@@ -1,4 +1,8 @@
-﻿using System;
+﻿//
+//Code for Research paper on neural networks.
+//For questions contact: Sjoerdteunisse at google mail dot com
+//
+using System;
 using System.Data;
 using System.Linq;
 using ConsoleTableExt;
@@ -15,6 +19,10 @@ namespace NeuralCore
             Layers = new List<NeuralLayer>();
         }
 
+        /// <summary>
+        /// Adds a neural layer to the existing NetworkModel
+        /// </summary>
+        /// <param name="layer">Layer to eb added</param>
         public void AddLayer(NeuralLayer layer)
         {
             int dendriteCount = 1;
@@ -32,7 +40,10 @@ namespace NeuralCore
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Build network
+        /// </summary>
         public void Build()
         {
             int i = 0;
@@ -50,53 +61,71 @@ namespace NeuralCore
             }
         }
 
-        public void Train(NeuralData X, NeuralData Y, int iterations, double learningRate = 0.1)
+        /// <summary>
+        /// Trains the neural network as following
+        ///
+        /// 1. Loops through training data
+        /// 2. Input data in 1st layer
+        /// 3. Forward pulse accross layer to get the designated output
+        /// 4. Measure output and compare to expected result
+        /// 5. Optimize weights to achieve better results
+        /// 
+        /// </summary>
+        /// <param name="xNeural">height data</param>
+        /// <param name="yNeural">width data</param>
+        /// <param name="runItteration">times to perform</param>
+        /// <param name="learningRate">rate of learning</param>
+        public void Train(NeuralData xNeural, NeuralData yNeural, int runItteration, double learningRate = 0.1)
         {
             int epoch = 1;
-            
-            //Loop till the number of iterations
-            List<double> outputs = new List<double>();
 
-            while (iterations >= epoch)
+            //Loop till the number of runItteration
+            while (runItteration >= epoch)
             {
                 //Get the input layers
                 var inputLayer = Layers[0];
+                List<double> outputs = new List<double>();
 
                 //Loop through the record
-                for (var i = 0; i < X.Data.Length; i++)
+                for (int i = 0; i < xNeural.Data.Length; i++)
                 {
                     //Set the input data into the first layer
-                    for (int j = 0; j < X.Data[i].Length; j++)
+                    for (int j = 0; j < xNeural.Data[i].Length; j++)
                     {
-                        inputLayer.Neurons[j].OutputPulse.Value = X.Data[i][j];
+                        inputLayer.Neurons[j].OutputPulse.Value = xNeural.Data[i][j];
                     }
 
                     //Fire all the neurons and collect the output
                     ComputeOutput();
+
                     outputs.Add(Layers.Last().Neurons.First().OutputPulse.Value);
                 }
 
-                //Check the accuracy score against Y with the actual output
+                //Check the accuracy score against yNeural with the actual output
                 double accuracySum = 0;
-                int yCounter = 0;
+                int y_counter = 0;
                 outputs.ForEach((x) =>
                 {
-                    if (x == Y.Data[yCounter].First())
+                    if (x == yNeural.Data[y_counter].First())
                     {
                         accuracySum++;
                     }
 
-                    yCounter++;
+                    y_counter++;
                 });
 
                 //Optimize the synaptic weights
-                OptimizeWeights(accuracySum / yCounter);
-
-                Console.WriteLine("Epoch: {0}, Accuracy: {1} %", epoch, (accuracySum / yCounter) * 100);
+                OptimizeWeights(accuracySum / y_counter);
+                Console.WriteLine("Epoch: {0}, Accuracy: {1} %", 
+                    epoch, (accuracySum / y_counter) * 100);
                 epoch++;
             }
         }
 
+        /// <summary>
+        /// Print the current model with use of DataTable
+        /// REFERENCE from nugget required (consoletableext).
+        /// </summary>
         public void Print()
         {
             var dt = new DataTable();
@@ -123,7 +152,7 @@ namespace NeuralCore
             bool first = true;
             foreach (var layer in Layers)
             {
-                //Skip first layer as it is input
+                //First layer is input, so skip.
                 if (first)
                 {
                     first = false;
@@ -137,6 +166,7 @@ namespace NeuralCore
         private void OptimizeWeights(double accuracy)
         {
             float lr = 0.1f;
+
             //Skip if the accuracy reached 100%
             if (accuracy == 1)
             {
@@ -155,6 +185,11 @@ namespace NeuralCore
             }
         }
 
+        /// <summary>
+        /// Creates a network based on the connections
+        /// </summary>
+        /// <param name="connectingFrom">neuralLayerFrom</param>
+        /// <param name="connectingTo">neuralLayerTo</param>
         private void CreateNetwork(NeuralLayer connectingFrom, NeuralLayer connectingTo)
         {
             foreach (var from in connectingFrom.Neurons)
@@ -167,7 +202,7 @@ namespace NeuralCore
                 to.Dendrites = new List<Dendrite>();
                 foreach (var from in connectingFrom.Neurons)
                 {
-                    to.Dendrites.Add(new Dendrite() { InputPulse = from.OutputPulse, SynapticWeight = connectingTo.Weight });
+                    to.Dendrites.Add(new Dendrite() { InputPulse = from.OutputPulse, SynapseWeight = connectingTo.Weight });
                 }
             }
         }

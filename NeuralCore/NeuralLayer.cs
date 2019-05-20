@@ -1,4 +1,8 @@
-﻿using System;
+﻿//
+//Code for Research paper on neural networks.
+//For questions contact: Sjoerdteunisse at google mail dot com
+//
+using System;
 using System.Collections.Generic;
 
 namespace NeuralCore
@@ -24,6 +28,11 @@ namespace NeuralCore
             Name = name;
         }
 
+        /// <summary>
+        /// Optimze the weights of a neuron based on the learning rate and delta
+        /// </summary>
+        /// <param name="learningRate"></param>
+        /// <param name="delta">A gradient descent learning rule for updating the weights</param>
         public void Optimize(double learningRate, double delta)
         {
             Weight += learningRate * delta;
@@ -33,10 +42,14 @@ namespace NeuralCore
             }
         }
 
+        /// <summary>
+        /// Forward neuron through layer
+        /// </summary>
         public void Forward()
         {
             foreach (var neuron in Neurons)
             {
+                //Fire neuron
                 neuron.Fire();
             }
         }
