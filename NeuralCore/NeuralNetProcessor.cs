@@ -4,7 +4,7 @@
 //
 namespace NeuralCore
 {
-    interface NeuralNetRunner
+    interface NeuralNetProcessor
     {
         void Run();
     }

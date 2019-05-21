@@ -51,12 +51,11 @@
     <Compile Include="NetworkModel.cs" />
     <Compile Include="NeuralData.cs" />
     <Compile Include="NeuralLayer.cs" />
-    <Compile Include="NeuralNetRunner.cs" />
+    <Compile Include="NeuralNetProcessor.cs" />
     <Compile Include="NeuralNetwork.cs" />
     <Compile Include="Neuron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pulse.cs" />
-    <Compile Include="ThreeLayerNet.cs" />
     <Compile Include="XORNeuralNetwork.cs" />
   </ItemGroup>
   <ItemGroup>

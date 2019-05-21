@@ -2,6 +2,8 @@
 //Code for Research paper on neural networks.
 //For questions contact: Sjoerdteunisse at google mail dot com
 //
+
+using System;
 using System.Collections.Generic;
 
 namespace NeuralCore
@@ -20,7 +22,8 @@ namespace NeuralCore
             OutputPulse = new Pulse();
         }
 
-        /// <summary>
+
+       /// <summary>
         /// Fires the activation with the value of each neuron
         /// </summary>
         public void Fire()
@@ -59,9 +62,9 @@ namespace NeuralCore
         /// <summary>
         /// Activation function 
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="input">input to be activated</param>
         /// <returns></returns>
-        private double Activation(double input)
+        public double Activation(double input)
         {
             double threshold = 1;
             return input <= threshold ? 0 : threshold;

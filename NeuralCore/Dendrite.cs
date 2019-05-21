@@ -1,4 +1,9 @@
-﻿namespace NeuralCore
+﻿//
+//Code for Research paper on neural networks.
+//For questions contact: Sjoerdteunisse at google mail dot com
+//
+
+namespace NeuralCore
 {
     public class Dendrite
     {

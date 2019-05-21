@@ -14,6 +14,9 @@ namespace NeuralCore
     {
         public List<NeuralLayer> Layers { get; set; }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public NetworkModel()
         {
             Layers = new List<NeuralLayer>();
@@ -46,7 +49,7 @@ namespace NeuralCore
         /// </summary>
         public void Build()
         {
-            int i = 0;
+            var i = 0;
             foreach (var layer in Layers)
             {
                 if (i >= Layers.Count - 1)
@@ -56,7 +59,6 @@ namespace NeuralCore
 
                 var nextLayer = Layers[i + 1];
                 CreateNetwork(layer, nextLayer);
-
                 i++;
             }
         }
@@ -66,7 +68,7 @@ namespace NeuralCore
         ///
         /// 1. Loops through training data
         /// 2. Input data in 1st layer
-        /// 3. Forward pulse accross layer to get the designated output
+        /// 3. Forward pulse across layer to get the designated output
         /// 4. Measure output and compare to expected result
         /// 5. Optimize weights to achieve better results
         /// 
@@ -77,22 +79,22 @@ namespace NeuralCore
         /// <param name="learningRate">rate of learning</param>
         public void Train(NeuralData xNeural, NeuralData yNeural, int runItteration, double learningRate = 0.1)
         {
-            int epoch = 1;
+            var epoch = 1;
 
             //Loop till the number of runItteration
             while (runItteration >= epoch)
             {
                 //Get the input layers
                 var inputLayer = Layers[0];
-                List<double> outputs = new List<double>();
+                var outputs = new List<double>();
 
                 //Loop through the record
-                for (int i = 0; i < xNeural.Data.Length; i++)
+                foreach (var t in xNeural.Data)
                 {
                     //Set the input data into the first layer
-                    for (int j = 0; j < xNeural.Data[i].Length; j++)
+                    for (var j = 0; j < t.Length; j++)
                     {
-                        inputLayer.Neurons[j].OutputPulse.Value = xNeural.Data[i][j];
+                        inputLayer.Neurons[j].OutputPulse.Value = t[j];
                     }
 
                     //Fire all the neurons and collect the output
@@ -103,21 +105,21 @@ namespace NeuralCore
 
                 //Check the accuracy score against yNeural with the actual output
                 double accuracySum = 0;
-                int y_counter = 0;
+                var yCounter = 0;
                 outputs.ForEach((x) =>
                 {
-                    if (x == yNeural.Data[y_counter].First())
+                    if (x == yNeural.Data[yCounter].First())
                     {
                         accuracySum++;
                     }
 
-                    y_counter++;
+                    yCounter++;
                 });
 
                 //Optimize the synaptic weights
-                OptimizeWeights(accuracySum / y_counter);
+                OptimizeWeights(accuracySum / yCounter);
                 Console.WriteLine("Epoch: {0}, Accuracy: {1} %", 
-                    epoch, (accuracySum / y_counter) * 100);
+                    epoch, (accuracySum / yCounter) * 100);
                 epoch++;
             }
         }
@@ -135,7 +137,7 @@ namespace NeuralCore
 
             foreach (var element in Layers)
             {
-                DataRow row = dt.NewRow();
+                var row = dt.NewRow();
                 row[0] = element.Name;
                 row[1] = element.Neurons.Count;
                 row[2] = element.Weight;
@@ -149,7 +151,7 @@ namespace NeuralCore
 
         private void ComputeOutput()
         {
-            bool first = true;
+            var first = true;
             foreach (var layer in Layers)
             {
                 //First layer is input, so skip.
@@ -165,7 +167,7 @@ namespace NeuralCore
 
         private void OptimizeWeights(double accuracy)
         {
-            float lr = 0.1f;
+            var learningRate = 0.1f;
 
             //Skip if the accuracy reached 100%
             if (accuracy == 1)
@@ -175,13 +177,13 @@ namespace NeuralCore
 
             if (accuracy > 1)
             {
-                lr = -lr;
+                learningRate = -learningRate;
             }
 
             //Update the weights for all the layers
             foreach (var layer in Layers)
             {
-                layer.Optimize(lr, 1);
+                layer.Optimize(learningRate, 1);
             }
         }
 

@@ -17,17 +17,17 @@ namespace NeuralCore
     ///
     /// 
     /// </summary>
-    public class XORNeuralNetwork : NeuralNetwork
+    public class XorNeuralNetwork : NeuralNetwork
     {
         /// <summary>
         /// Base constructor for XOR problem.
         /// </summary>
-        public XORNeuralNetwork() :
+        public XorNeuralNetwork() :
             base()
         {}
 
         /// <summary>
-        /// Run XOR network
+        /// Run Xor network
         /// </summary>
         public void Run()
         {
@@ -48,9 +48,13 @@ namespace NeuralCore
             x.Add(1, 1);
 
             NeuralData y = new NeuralData(4);
+            //XOR problem states 0,1=0
             y.Add(0);
+            //XOR problem states 0,1=0
             y.Add(0);
+            //XOR problem states 0,1=0
             y.Add(0);
+            //XOR problem states 1;1=1
             y.Add(1);
 
             model.Train(x, y, runItteration: 10, learningRate: 0.1);
