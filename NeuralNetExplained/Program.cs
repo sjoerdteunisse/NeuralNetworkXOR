@@ -18,13 +18,13 @@ namespace NeuralNetExplained
 
             //Create a three layer network with one hidden layer as an example.
             Console.WriteLine("\n\n_____________Three layer network_________________");
-            NetworkModel model = new NetworkModel();
-            model.Layers.Add(new NeuralLayer(2, 0.1, "INPUT"));
-            model.Layers.Add(new NeuralLayer(2, 0.1, "HIDDEN"));
-            model.Layers.Add(new NeuralLayer(1, 0.1, "OUTPUT"));
+            NetworkModel threeLayerNet = new NetworkModel();
+            threeLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "INPUT"));
+            threeLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "HIDDEN"));
+            threeLayerNet.Layers.Add(new NeuralLayer(1, 0.1, "OUTPUT"));
 
-            model.Build();
-            model.Print();
+            threeLayerNet.Build();
+            threeLayerNet.Print();
 
 
             //create a 8 layer network as an example.

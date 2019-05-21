@@ -32,6 +32,7 @@ namespace NeuralCore
         public void Run()
         {
             NetworkModel model = new NetworkModel();
+
             model.Layers.Add(new NeuralLayer(2, 0.1, "INPUT"));
             model.Layers.Add(new NeuralLayer(1, 0.1, "OUTPUT"));
 
@@ -41,23 +42,19 @@ namespace NeuralCore
 
             Console.WriteLine();
 
-            NeuralData x = new NeuralData(4);
+            var x = new NeuralData(4);
             x.Add(0, 0);
             x.Add(0, 1);
             x.Add(1, 0);
             x.Add(1, 1);
 
-            NeuralData y = new NeuralData(4);
-            //XOR problem states 0,1=0
+            var y = new NeuralData(4);
             y.Add(0);
-            //XOR problem states 0,1=0
-            y.Add(0);
-            //XOR problem states 0,1=0
-            y.Add(0);
-            //XOR problem states 1;1=1
             y.Add(1);
+            y.Add(1);
+            y.Add(0);
 
-            model.Train(x, y, runItteration: 10, learningRate: 0.1);
+            model.Train(x, y, runItteration: 1000000, learningRate: 0.1);
             Console.WriteLine();
             Console.WriteLine("After Training");
             model.Print();

@@ -18,13 +18,13 @@ namespace NeuralCore
         public NeuralLayer(int count, double initialWeight, string name = "")
         {
             Neurons = new List<Neuron>();
-            for (int i = 0; i < count; i++)
+
+            for (var i = 0; i < count; i++)
             {
                 Neurons.Add(new Neuron());
             }
 
             Weight = initialWeight;
-
             Name = name;
         }
 
