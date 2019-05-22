@@ -196,7 +196,7 @@ namespace NeuralEngine
                 done = CheckResults(out var values);
 
                 //Write for debug.
-                Console.WriteLine("Neural Network XOR results: " + values + $"after {iterations} iterations");
+                Console.WriteLine("Neural Network XOR results: " + values + $" after {iterations} iterations");
 
                 //As Ref XOR states: the following is correct
                 if (values.Equals("(0,0=>0,0), (0,1=>1,0), (1,0=>1,0), (1,1=>0,0)"))
