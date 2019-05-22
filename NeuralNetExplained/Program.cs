@@ -2,8 +2,9 @@
 //Code for Research paper on neural networks.
 //For questions contact: Sjoerdteunisse at google mail dot com
 //
+
 using System;
-using NeuralCore;
+using NeuralEngine;
 
 namespace NeuralNetExplained
 {
@@ -11,37 +12,35 @@ namespace NeuralNetExplained
     {
         static void Main(string[] args)
         {
-            //Run XOR example
-            Console.WriteLine("_____________Xor problem Two layer network_________________\n");
-            XorNeuralNetwork neuralNetwork = new XorNeuralNetwork();
-            neuralNetwork.Run();
+            double[][] xorIn =
+            {
+                new double[] {0, 0},
+                new double[] {0, 1},
+                new double[] {1, 0},
+                new double[] {1, 1}
+            };
 
-            //Create a three layer network with one hidden layer as an example.
-            Console.WriteLine("\n\n_____________Three layer network_________________");
-            NetworkModel threeLayerNet = new NetworkModel();
-            threeLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "INPUT"));
-            threeLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "HIDDEN"));
-            threeLayerNet.Layers.Add(new NeuralLayer(1, 0.1, "OUTPUT"));
-
-            threeLayerNet.Build();
-            threeLayerNet.Print();
+            double[][] xorDesired =
+            {
+                new double[] {0, 0},
+                new double[] {1, 0},
+                new double[] {1, 0},
+                new double[] {0, 0}
+            };
 
 
-            //create a 8 layer network as an example.
-            Console.WriteLine("\n\n_____________Eight layer network_________________");
-            NetworkModel eightLayerNet = new NetworkModel();
-            eightLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "INPUT"));
-            eightLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "HIDDEN"));
-            eightLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "HIDDEN"));
-            eightLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "HIDDEN"));
-            eightLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "HIDDEN"));
-            eightLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "HIDDEN"));
-            eightLayerNet.Layers.Add(new NeuralLayer(2, 0.1, "HIDDEN"));
-            eightLayerNet.Layers.Add(new NeuralLayer(1, 0.1, "OUTPUT"));
+            Console.WriteLine("Code for Research paper on neural networks.\n");
+            Console.WriteLine("The XOr, or “exclusive or”, " +
+                              "problem is a classic problem in ANN research. \nIt is the problem of using a neural network to predict the " +
+                              "outputs of XOr logic gates given two binary inputs.\nAn XOr function should return a true value if the two " +
+                              "inputs are not equal and a false value if they are equal. \n");
 
-            eightLayerNet.Build();
-            eightLayerNet.Print();
 
+
+            var neuralNetwork = new NeuralNetwork(2, 4, 2, 0.25);
+            neuralNetwork.Run(xorIn, xorDesired);
+            
+            Console.WriteLine("\nPress any key to exit...");
             Console.ReadLine();
         }
     }

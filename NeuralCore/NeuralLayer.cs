@@ -58,5 +58,7 @@ namespace NeuralCore
         {
             return string.Format("{0}, Weight: {1}", Name, Weight);
         }
+
+
     }
 }
