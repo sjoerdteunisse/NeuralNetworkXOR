@@ -50,10 +50,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NeuralCore\NeuralCore.csproj">
-      <Project>{5eebe608-ee7e-4af0-808a-215aca3d3284}</Project>
-      <Name>NeuralCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NeuralEngine\NeuralEngine.csproj">
       <Project>{716b38c0-bdfc-4a53-b05a-89f3f0ab6b6e}</Project>
       <Name>NeuralEngine</Name>

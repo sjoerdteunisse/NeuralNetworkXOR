@@ -18,7 +18,7 @@ namespace NeuralEngine
         /// </summary>
         public void ApplyLearning()
         {
-            foreach (Neuron neuron in this)
+            foreach (var neuron in this)
                 neuron.ApplyLearning();
         }
 
@@ -27,7 +27,7 @@ namespace NeuralEngine
         /// </summary>
         public void Pulse()
         {
-            foreach (Neuron neuron in this)
+            foreach (var neuron in this)
                 neuron.Pulse();
         }
     }

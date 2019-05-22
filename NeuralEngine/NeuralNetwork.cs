@@ -9,7 +9,7 @@ using System.Text;
 namespace NeuralEngine
 {
     /// <summary>
-    /// Represents a Neural Network. Initially network is setup with random weights
+    /// Represents a Neural Network. Initial network is setup with random weights
     /// Back-prop supported
     /// </summary>
     public class NeuralNetwork
@@ -77,8 +77,6 @@ namespace NeuralEngine
                     OutputLayer[i].InputSignals.Add(HiddenLayer[j].OutputSignal, new NeuralFactor(CalcInitWeight(hiddenNeuronCount)));
         }
 
-
-
         /// <summary>
         /// Applies learning to every Layer in network
         /// </summary>
@@ -132,21 +130,22 @@ namespace NeuralEngine
                 throw new ArgumentNullException(nameof(desiredResults));
 
             // Output layer errors
-            for (int i = 0; i < OutputLayer.Count; i++)
+            for (var i = 0; i < OutputLayer.Count; i++)
             {
-                double temp = OutputLayer[i].OutputSignal.Output;
+                var temp = OutputLayer[i].OutputSignal.Output;
                 OutputLayer[i].Error = (desiredResults[i] - temp) * temp * (1.0 - temp);
             }
 
             // Hidden layer errors
-            foreach (Neuron hiddenNode in HiddenLayer)
+            foreach (var hiddenNode in HiddenLayer)
             {
                 double error = 0;
 
-                foreach (Neuron outputNode in OutputLayer)
+                foreach (var outputNode in OutputLayer)
                 {
                     error += outputNode.Error * outputNode.InputSignals[hiddenNode.OutputSignal].Weight * hiddenNode.OutputSignal.Output * (1.0 - hiddenNode.OutputSignal.Output);
                 }
+
                 hiddenNode.Error = error;
             }
 
@@ -179,14 +178,16 @@ namespace NeuralEngine
         {
             long count = 0;
             bool done;
+            var iterations = 10000;
 
             do
             {
-                count++; // The count needs to be multiplied by 100 to get the number of iterations so far
+                count++; //count * 100 = iteration
 
-                // Train the network 100 times.
                 // Each time, the Train method will iterate through each set of inputs and outputs
-                for (int i = 0; i < 10000; i++)
+
+                //Each run the train method will run through all inputs and outpus
+                for (var i = 0; i < iterations; i++)
                 {
                     Train(input, desiredResult);
                 }
@@ -195,7 +196,7 @@ namespace NeuralEngine
                 done = CheckResults(out var values);
 
                 //Write for debug.
-                Console.WriteLine("Neural Network XOR results: " + values);
+                Console.WriteLine("Neural Network XOR results: " + values + $"after {iterations} iterations");
 
                 //As Ref XOR states: the following is correct
                 if (values.Equals("(0,0=>0,0), (0,1=>1,0), (1,0=>1,0), (1,1=>0,0)"))
