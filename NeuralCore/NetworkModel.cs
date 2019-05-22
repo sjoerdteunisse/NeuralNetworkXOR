@@ -167,7 +167,7 @@ namespace NeuralCore
 
         private void OptimizeWeights(double accuracy)
         {
-            var learningRate = 0.1f;
+            var learningRate = 1f;
 
             //Skip if the accuracy reached 100%
             if (accuracy == 1)

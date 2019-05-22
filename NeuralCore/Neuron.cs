@@ -66,8 +66,25 @@ namespace NeuralCore
         /// <returns></returns>
         public double Activation(double input)
         {
+      
             double threshold = 1;
             return input <= threshold ? 0 : threshold;
+        }
+
+        /// <summary>
+        /// Sigmoid function
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+
+        public int Sigmoid(double x)
+        {
+            return (x >= 0) ? 1 : -1;
+        }
+
+        public override string ToString()
+        {
+            return OutputPulse.Value.ToString();
         }
     }
 }

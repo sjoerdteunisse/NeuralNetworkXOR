@@ -54,9 +54,9 @@ namespace NeuralCore
             }
         }
 
-        public void Log()
+        public override string ToString()
         {
-            Console.WriteLine("{0}, Weight: {1}", Name, Weight);
+            return string.Format("{0}, Weight: {1}", Name, Weight);
         }
     }
 }
