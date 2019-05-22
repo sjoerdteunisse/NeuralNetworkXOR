@@ -1,1 +1,2 @@
-NeuralNetworkXOR
+NeuralNetwork XOR
+
