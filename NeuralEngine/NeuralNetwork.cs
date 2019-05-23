@@ -61,10 +61,10 @@ namespace NeuralEngine
                 InputLayer.Add(new Neuron(0)); //Input neurons do not have a bias set to 0.
 
             for (var i = 0; i < hiddenNeuronCount; i++)
-                HiddenLayer.Add(new Neuron(_random.NextDouble()));// Random bias to be improved in learning
+                HiddenLayer.Add(new Neuron(_random.NextDouble())); // Random bias to be improved in learning
 
             for (var i = 0; i < outputNeuronCount; i++)
-                OutputLayer.Add(new Neuron(_random.NextDouble()));// Random bias to be improved in learning
+                OutputLayer.Add(new Neuron(_random.NextDouble())); // Random bias to be improved in learning
 
             //Connect input layer to hidden layer
             for (var i = 0; i < hiddenNeuronCount; i++)
@@ -194,7 +194,7 @@ namespace NeuralEngine
                 done = CheckResults(out var values);
 
                 //Write for debug.
-                Console.WriteLine("Neural Network XOR results: " + values + $" after {iterations} iterations");
+                Console.WriteLine("Neural Network XOR results: " + values);
 
                 //As Ref XOR states: the following is correct
                 if (values.Equals("(0,0=>0,0), (0,1=>1,0), (1,0=>1,0), (1,1=>0,0)"))
@@ -261,7 +261,7 @@ namespace NeuralEngine
                 {
                     InputLayer[j].OutputSignal.Output = _xorIn[i][j];
 
-                    if (j != 0)//next val comma separate
+                    if (j != 0) //next val comma separate
                         thisMessage.Append(",");
 
                     thisMessage.Append(_xorIn[i][j]);
@@ -281,7 +281,7 @@ namespace NeuralEngine
                     if (Math.Abs(outputSignalOutput - desired) > 0.1)
                         success = false;
 
-                    if (j != 0)//next val comma separate
+                    if (j != 0) //next val comma separate
                         thisMessage.Append(",");
 
                     thisMessage.Append(_xorDesired[i][j]);
