@@ -196,7 +196,8 @@ namespace NeuralEngine
                 //Write for debug.
                 Console.WriteLine("Neural Network XOR results: " + values);
 
-                //As Ref XOR states: the following is correct
+                //As Ref XOR states: the following is correct;
+                //string comparison as builder represents a hard built string anyway.
                 if (values.Equals("(0,0=>0,0), (0,1=>1,0), (1,0=>1,0), (1,1=>0,0)"))
                 {
                     //if correct print success
