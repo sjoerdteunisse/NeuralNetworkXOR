@@ -43,7 +43,7 @@ namespace NeuralNetExplained
             //Runs the neural network to train 
             neuralNetwork.Run(xorIn, xorDesired);
             
-            Console.WriteLine("\nPress any key to exit...");
+            Console.WriteLine("\nPress enter to exit...");
             Console.ReadLine();
         }
     }
