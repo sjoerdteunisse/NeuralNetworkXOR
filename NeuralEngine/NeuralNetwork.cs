@@ -40,7 +40,7 @@ namespace NeuralEngine
         public NeuralLayer OutputLayer { get; set; }
 
         /// <summary>
-        /// Creats a neural network, based on options
+        /// Creates a neural network, based on options
         /// </summary>
         /// <param name="inputNeuronCount">Number of input neurons</param>
         /// <param name="hiddenNeuronCount">Number of hidden neurons</param>
@@ -56,7 +56,7 @@ namespace NeuralEngine
             HiddenLayer = new NeuralLayer();
             OutputLayer = new NeuralLayer();
 
-            // Create the neurons for each layer
+            //Create neurons for each layer
             for (var i = 0; i < inputNeuronCount; i++)
                 InputLayer.Add(new Neuron(0)); //Input neurons do not have a bias set to 0.
 
@@ -66,12 +66,12 @@ namespace NeuralEngine
             for (var i = 0; i < outputNeuronCount; i++)
                 OutputLayer.Add(new Neuron(_random.NextDouble()));// Random bias to be improved in learning
 
-            // Connect input layer to hidden layer
+            //Connect input layer to hidden layer
             for (var i = 0; i < hiddenNeuronCount; i++)
                 for (var j = 0; j < inputNeuronCount; j++)
                     HiddenLayer[i].InputSignals.Add(InputLayer[j].OutputSignal, new NeuralFactor(CalcInitWeight(inputNeuronCount)));
 
-            // Connect hidden layer to output layer
+            //Connect hidden layer to output layer
             for (var i = 0; i < outputNeuronCount; i++)
                 for (var j = 0; j < hiddenNeuronCount; j++)
                     OutputLayer[i].InputSignals.Add(HiddenLayer[j].OutputSignal, new NeuralFactor(CalcInitWeight(hiddenNeuronCount)));
@@ -129,14 +129,14 @@ namespace NeuralEngine
             if (desiredResults == null)
                 throw new ArgumentNullException(nameof(desiredResults));
 
-            // Output layer errors
+            //Output error rate
             for (var i = 0; i < OutputLayer.Count; i++)
             {
                 var temp = OutputLayer[i].OutputSignal.Output;
                 OutputLayer[i].Error = (desiredResults[i] - temp) * temp * (1.0 - temp);
             }
 
-            // Hidden layer errors
+            //Hidden layer error rate
             foreach (var hiddenNode in HiddenLayer)
             {
                 double error = 0;
@@ -149,7 +149,7 @@ namespace NeuralEngine
                 hiddenNode.Error = error;
             }
 
-            // Adjust output layer weight change
+            //Adjust output layer weights
             foreach (var outputNode in OutputLayer)
             {
                 foreach (var hiddenNode in HiddenLayer)
@@ -158,7 +158,7 @@ namespace NeuralEngine
                 outputNode.Bias.Delta += _learningRate * outputNode.Error * outputNode.Bias.Weight;
             }
 
-            // Adjust hidden layer weight change
+            //Adjust hidden layer weights
             foreach (var hiddenNode in HiddenLayer)
             {
                 foreach (var inputNode in InputLayer)
@@ -176,15 +176,13 @@ namespace NeuralEngine
         /// <param name="maxXThousands">amount * 1000</param>
         public void Run(double[][] input, double[][] desiredResult, long? maxXThousands = null)
         {
-            long count = 0;
             bool done;
-            var iterations = 10000;
+            long count = 0;
+            const int iterations = 10000;
 
             do
             {
                 count++; //count * 100 = iteration
-
-                // Each time, the Train method will iterate through each set of inputs and outputs
 
                 //Each run the train method will run through all inputs and outpus
                 for (var i = 0; i < iterations; i++)
@@ -235,7 +233,7 @@ namespace NeuralEngine
             //Back-prop desired results
             BackPropagation(desiredResult);
 
-            //apply learning
+            //Call Apply
             ApplyLearning();
         }
 
@@ -258,7 +256,7 @@ namespace NeuralEngine
 
                 thisMessage.Append("(");
 
-                // Set inputs, and add the inputs to the message
+                //Set inputs, and add the inputs to the message
                 for (var j = 0; j < InputLayer.Count; j++)
                 {
                     InputLayer[j].OutputSignal.Output = _xorIn[i][j];
@@ -274,7 +272,7 @@ namespace NeuralEngine
                 Pulse();
                 thisMessage.Append("=>");
 
-                // Check outputs, and add the outputs to the message
+                //Check outputs, and add the outputs to the message
                 for (var j = 0; j < OutputLayer.Count; j++)
                 {
                     var outputSignalOutput = OutputLayer[j].OutputSignal.Output;

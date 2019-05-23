@@ -13,6 +13,10 @@ namespace NeuralEngine
     /// </summary>
     public class Neuron
     {
+        /// <summary>
+        /// Initialze neuron
+        /// </summary>
+        /// <param name="bias">bias value</param>
         public Neuron(double bias)
         {
             Bias = new NeuralFactor(bias);
@@ -23,9 +27,10 @@ namespace NeuralEngine
         /// </summary>
         public void ApplyLearning()
         {
-            foreach (var m in InputSignals)
+            foreach (var m in InputSignals)//Apply weight change
                 m.Value.ApplyWeightChange();
 
+            // Bias for shifting activation function val
             Bias.ApplyWeightChange();
         }
 
@@ -54,9 +59,24 @@ namespace NeuralEngine
             return 1 / (1 + Math.Exp(-value));
         }
 
+        /// <summary>
+        /// Bias for shifting activation function val
+        /// </summary>
         public NeuralFactor Bias { get; set; }
+        /// <summary>
+        /// Error rate
+        /// </summary>
         public double Error { get; set; }
-        public Dictionary<NeuronSignal, NeuralFactor> InputSignals { get; } = new Dictionary<NeuronSignal, NeuralFactor>();
+        
+        /// <summary>
+        /// Inputs
+        /// </summary>
+        public Dictionary<NeuronSignal, NeuralFactor> InputSignals { get; } =
+            new Dictionary<NeuronSignal, NeuralFactor>();
+
+        /// <summary>
+        /// Outputs
+        /// </summary>
         public NeuronSignal OutputSignal { get; set; } = new NeuronSignal();
     }
 }

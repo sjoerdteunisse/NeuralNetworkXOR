@@ -12,6 +12,7 @@ namespace NeuralNetExplained
     {
         static void Main(string[] args)
         {
+            //Input
             double[][] xorIn =
             {
                 new double[] {0, 0},
@@ -20,6 +21,7 @@ namespace NeuralNetExplained
                 new double[] {1, 1}
             };
 
+            //Desired
             double[][] xorDesired =
             {
                 new double[] {0, 0},
@@ -28,7 +30,7 @@ namespace NeuralNetExplained
                 new double[] {0, 0}
             };
 
-
+            //Explanation
             Console.WriteLine("Code for Research paper on neural networks.\n");
             Console.WriteLine("The XOr, or “exclusive or”, " +
                               "problem is a classic problem in ANN research. \nIt is the problem of using a neural network to predict the " +
@@ -36,8 +38,9 @@ namespace NeuralNetExplained
                               "inputs are not equal and a false value if they are equal. \n");
 
 
-
+            //Creates the neural network
             var neuralNetwork = new NeuralNetwork(2, 4, 2, 0.25);
+            //Runs the neural network to train 
             neuralNetwork.Run(xorIn, xorDesired);
             
             Console.WriteLine("\nPress any key to exit...");

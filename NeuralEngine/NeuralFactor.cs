@@ -16,7 +16,14 @@ namespace NeuralEngine
             Delta = 0;
         }
 
+        /// <summary>
+        /// Weight of neuralfactor
+        /// </summary>
         public double Weight { get; set; }
+
+        /// <summary>
+        /// Gradient decent rule for updating weights
+        /// </summary>
         public double Delta { get; set; }
 
         /// <summary>
