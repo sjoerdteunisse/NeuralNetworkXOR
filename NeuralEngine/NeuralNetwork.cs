@@ -198,6 +198,7 @@ namespace NeuralEngine
 
                 //As Ref XOR states: the following is correct;
                 //string comparison as builder represents a hard built string anyway.
+                //Run can have a Out params to ref the value returned from CheckResults to compare.
                 if (values.Equals("(0,0=>0,0), (0,1=>1,0), (1,0=>1,0), (1,1=>0,0)"))
                 {
                     //if correct print success
